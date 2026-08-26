@@ -83,5 +83,6 @@ jobs:
       - name: Carica il file nei Risultati (Artifacts)
         uses: actions/upload-artifact@v4
         with:
-          name: Rebuttal-${{ github.event.inputs.subscription_id }}
-          path: "*.docx"
+         path: |
+            *.docx
+            *.txt
