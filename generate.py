@@ -17,6 +17,8 @@ chargeback_reason = sys.argv[12]
 
 # 2. Apri il file Word di template
 template_path = "template.docx"
+if not os.path.exists(template_path) and os.path.exists("template.docx.docx"):
+    template_path = "template.docx.docx"
 doc = Document(template_path)
 
 # 3. Mappatura corretta con le variabili Python valide
