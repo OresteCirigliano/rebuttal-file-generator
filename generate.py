@@ -16,7 +16,7 @@ disputed_instalment = sys.argv[11]
 chargeback_reason = sys.argv[12]
 
 # 2. Apri il file Word di template
-template_path = "Chargeback rebuttal evidence and cover sheet template.docx"
+template_path = "template.docx"
 doc = Document(template_path)
 
 # 3. Mappatura corretta con le variabili Python valide
