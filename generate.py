@@ -94,14 +94,14 @@ print(f"File Word generato con successo: {output_filename}")
 # 8. Generazione del testo esplicativo per la banca (.txt e console)
 context_text = f"""--- BANK DISPUTE SUMMARY & CONTEXT ---
 
-On {subscription_creation_date}, the customer ({customer_name}) placed an ongoing instalment order. 
-The cardholder explicitly opted to receive a 4-month supply shipment and selected the instalment payment option to divide the total order value ({shipping_total_value}) into 4 smaller payments ({disputed_amount}).
+On {subscription_creation_date}, the customer ({customer_name}) placed an ongoing instalment order (Subscription ID: {subscription_id}). 
+The cardholder explicitly opted to receive a 4-month supply shipment (Shipment #{consecutive_shipment_number}, Order ID: {shipping_order_id}) and selected the instalment plan option to divide the total shipping value ({shipping_total_value}) into 4 payments ({disputed_amount} per instalment).
 
-During checkout, the customer formally accepted the Terms & Conditions, which are mandatory to complete the transaction. 
-The entire product supply was successfully delivered on {delivery_date} (Tracking ID: {tracking_id}). 
+During checkout, the customer formally accepted the Terms & Conditions (mandatory to proceed with the payment) and authenticated the initial charge via 3D-Secure (3DS). 
+The full product supply was successfully delivered on {delivery_date} via DHL (Tracking ID: {tracking_id}). 
 
-The customer is currently disputing instalment {disputed_instalment} of shipment number {consecutive_shipment_number}. 
-This charge is fully legitimate and contractually due...
+The customer is currently disputing instalment {disputed_instalment} charged on {disputed_charge_date} for reason '{chargeback_reason}'. 
+This charge is fully legitimate and contractually due, as it covers inventory already delivered and retained by the customer.
 """
 
 print("\n" + context_text)
