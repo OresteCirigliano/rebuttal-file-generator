@@ -11,10 +11,10 @@ template_path = "template.docx"
 doc = Document(template_path)
 
 replacements = {
-    "{CUSTOMER_NAME}": customer_name,
-    "{SUBSCRIPTION_ID}": subscription_id,
-    "{DISPUTED_AMOUNT}": disputed_amount,
-    "{DELIVERY_DATE}": delivery_date,
+    "{CUSTOMER FULL NAME}": customer_name,
+    "{SUBSCRIPTION ID}": subscription_id,
+    "{AMOUNT + CURRENCY}": disputed_amount,
+    "{DD.MM.YYYY}": delivery_date,
 }
 
 # Sostituisce i dati nei paragrafi
