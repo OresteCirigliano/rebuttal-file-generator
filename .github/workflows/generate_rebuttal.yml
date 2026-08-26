@@ -4,19 +4,50 @@ on:
   workflow_dispatch:
     inputs:
       customer_name:
-        description: 'Nome e Cognome Cliente'
+        description: 'Customer Name'
         required: true
       subscription_id:
         description: 'Subscription ID'
         required: true
+      subscription_creation_date:
+        description: 'Subscription Date (DD.MM.YYYY)'
+        required: false
+        default: 'N/A'
+      shipping_order_id:
+        description: 'Shipping Order ID'
+        required: false
+        default: 'N/A'
+      tracking_id:
+        description: 'Tracking ID'
+        required: false
+        default: 'N/A'
+      shipping_total_value:
+        description: 'Shipping Total Value (es. £100.00)'
+        required: false
+        default: 'N/A'
       disputed_amount:
-        description: 'Importo Contesto (es. 49.90 EUR)'
-        required: false
-        default: 'N/A'
+        description: 'Disputed Amount + Currency (es. 50.50 EUR)'
+        required: true
       delivery_date:
-        description: 'Data Consegna Merce'
+        description: 'Full Bulk Delivery Date (DD.MM.YYYY)'
         required: false
         default: 'N/A'
+      consecutive_shipment_number:
+        description: 'Consecutive Shipment Number (es. 1, 2...)'
+        required: false
+        default: 'N/A'
+      disputed_charge_date:
+        description: 'Disputed Charge Date (DD.MM.YYYY)'
+        required: false
+        default: 'N/A'
+      disputed_instalment:
+        description: 'Disputed Instalment (es. 2 of 4)'
+        required: false
+        default: 'N/A'
+      chargeback_reason:
+        description: 'Chargeback Reason'
+        required: false
+        default: 'Subscription Cancelled / Recurring Charge'
 
 jobs:
   build:
@@ -35,7 +66,19 @@ jobs:
 
       - name: Genera Documento Word
         run: |
-          python generate.py "${{ github.event.inputs.customer_name }}" "${{ github.event.inputs.subscription_id }}" "${{ github.event.inputs.disputed_amount }}" "${{ github.event.inputs.delivery_date }}"
+          python generate.py \
+            "${{ github.event.inputs.customer_name }}" \
+            "${{ github.event.inputs.subscription_id }}" \
+            "${{ github.event.inputs.subscription_creation_date }}" \
+            "${{ github.event.inputs.shipping_order_id }}" \
+            "${{ github.event.inputs.tracking_id }}" \
+            "${{ github.event.inputs.shipping_total_value }}" \
+            "${{ github.event.inputs.disputed_amount }}" \
+            "${{ github.event.inputs.delivery_date }}" \
+            "${{ github.event.inputs.consecutive_shipment_number }}" \
+            "${{ github.event.inputs.disputed_charge_date }}" \
+            "${{ github.event.inputs.disputed_instalment }}" \
+            "${{ github.event.inputs.chargeback_reason }}"
 
       - name: Carica il file nei Risultati (Artifacts)
         uses: actions/upload-artifact@v4
