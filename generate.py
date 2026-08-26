@@ -27,7 +27,7 @@ replacements = {
     "{ORDER ID}": shipping_order_id,
     "{TRACKING ID}": tracking_id,
     "{Shipping Value}": shipping_total_value,
-    "{DISPUTE AMOUNT AMOUNT + CURRENCY}": disputed_amount,
+    "{DISPUTE AMOUNT + CURRENCY}": disputed_amount,
     "{DELIVERY DATE}": delivery_date,
     "{shipping number}": consecutive_shipment_number,
     "{Disputed Charge Date}": disputed_charge_date,
