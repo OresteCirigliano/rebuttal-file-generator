@@ -1,3 +1,4 @@
+import os
 import sys
 from docx import Document
 
@@ -15,13 +16,14 @@ disputed_charge_date = sys.argv[10]
 disputed_instalment = sys.argv[11]
 chargeback_reason = sys.argv[12]
 
-# 2. Apri il file Word di template
+# 2. Gestione intelligente del percorso del file Word
 template_path = "template.docx"
 if not os.path.exists(template_path) and os.path.exists("template.docx.docx"):
     template_path = "template.docx.docx"
+
 doc = Document(template_path)
 
-# 3. Mappatura corretta con le variabili Python valide
+# 3. Mappatura dei segnaposto esatti del tuo file Word
 replacements = {
     "{CUSTOMER FULL NAME}": customer_name,
     "{SUBSCRIPTION ID}": subscription_id,
@@ -29,7 +31,7 @@ replacements = {
     "{ORDER ID}": shipping_order_id,
     "{TRACKING ID}": tracking_id,
     "{Shipping Value}": shipping_total_value,
-    "{DISPUTE AMOUNT + CURRENCY}": disputed_amount,
+    "{DISPUTE AMOUNT AMOUNT + CURRENCY}": disputed_amount,
     "{DELIVERY DATE}": delivery_date,
     "{shipping number}": consecutive_shipment_number,
     "{Disputed Charge Date}": disputed_charge_date,
@@ -52,7 +54,7 @@ for table in doc.tables:
                     if key in p.text:
                         p.text = p.text.replace(key, value)
 
-# 6. Salva il documento
+# 6. Salva il documento aggiornato
 output_filename = f"Rebuttal_{subscription_id}_{customer_name.replace(' ', '_')}.docx"
 doc.save(output_filename)
 print(f"File generato con successo: {output_filename}")
