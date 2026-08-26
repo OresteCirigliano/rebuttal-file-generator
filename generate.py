@@ -25,10 +25,16 @@ instalment_2_date = "N/A"
 instalment_3_date = "N/A"
 instalment_4_date = "N/A"
 
-# Tenta il parsing della data nei formati più comuni (GG.MM.AAAA o GG/MM/AAAA)
-for date_format in ("%d.%m.%Y", "%d/%m/%Y", "%Y-%m-%d"):
+date_formats = (
+    "%d.%m.%Y", "%d/%m/%Y", "%Y-%m-%d", "%d-%m-%Y",
+    "%d.%m.%Y %H:%M", "%d/%m/%Y %H:%M", "%Y-%m-%d %H:%M:%S"
+)
+
+clean_date_str = subscription_creation_date.split()[0] if subscription_creation_date else ""
+
+for date_format in date_formats:
     try:
-        base_date = datetime.strptime(subscription_creation_date, date_format)
+        base_date = datetime.strptime(clean_date_str, date_format.split()[0])
         instalment_1_date = base_date.strftime("%d.%m.%Y")
         instalment_2_date = (base_date + relativedelta(months=1)).strftime("%d.%m.%Y")
         instalment_3_date = (base_date + relativedelta(months=2)).strftime("%d.%m.%Y")
@@ -59,20 +65,19 @@ replacements = {
     "{Disputed Charge Date}": disputed_charge_date,
     "{#X of 4}": disputed_instalment,
     "{e.g. Fraudulent / Not Received / Unauthorised}": chargeback_reason,
-    # Segnaposto dinamici della Timeline
     "{INSTALMENT_1_DATE}": instalment_1_date,
     "{INSTALMENT_2_DATE}": instalment_2_date,
     "{INSTALMENT_3_DATE}": instalment_3_date,
     "{INSTALMENT_4_DATE}": instalment_4_date,
 }
 
-# 5. Sostituzione nei paragrafi
+# 5. Sostituzione nei paragrafi Word
 for p in doc.paragraphs:
     for key, value in replacements.items():
         if key in p.text:
             p.text = p.text.replace(key, value)
 
-# 6. Sostituzione nelle tabelle
+# 6. Sostituzione nelle tabelle Word
 for table in doc.tables:
     for row in table.rows:
         for cell in row.cells:
@@ -81,7 +86,29 @@ for table in doc.tables:
                     if key in p.text:
                         p.text = p.text.replace(key, value)
 
-# 7. Salva il documento aggiornato
+# 7. Salva il documento Word aggiornato
 output_filename = f"Rebuttal_{subscription_id}_{customer_name.replace(' ', '_')}.docx"
 doc.save(output_filename)
-print(f"File generato con successo: {output_filename}")
+print(f"File Word generato con successo: {output_filename}")
+
+# 8. Generazione del testo esplicativo per la banca (.txt e console)
+context_text = f"""--- BANK DISPUTE SUMMARY & CONTEXT ---
+
+On {subscription_creation_date}, the customer ({customer_name}) placed an ongoing instalment order. 
+The cardholder explicitly opted to receive a 4-month supply shipment and selected the instalment payment option to divide the total order value ({shipping_total_value}) into 4 smaller payments ({disputed_amount}).
+
+During checkout, the customer formally accepted the Terms & Conditions, which are mandatory to complete the transaction. 
+The entire product supply was successfully delivered on {delivery_date} (Tracking ID: {tracking_id}). 
+
+The customer is currently disputing instalment {disputed_instalment} of shipment number {consecutive_shipment_number}. 
+This charge is fully legitimate and contractually due...
+"""
+
+print("\n" + context_text)
+
+# Salva il testo anche in un file TXT pronto per il download
+txt_filename = f"Context_{subscription_id}.txt"
+with open(txt_filename, "w", encoding="utf-8") as f:
+    f.write(context_text)
+
+print(f"File di testo salvato con successo: {txt_filename}")
