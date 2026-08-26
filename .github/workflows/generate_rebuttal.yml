@@ -1,0 +1,44 @@
+name: Genera Rebuttal Word
+
+on:
+  workflow_dispatch:
+    inputs:
+      customer_name:
+        description: 'Nome e Cognome Cliente'
+        required: true
+      subscription_id:
+        description: 'Subscription ID'
+        required: true
+      disputed_amount:
+        description: 'Importo Contesto (es. 49.90 EUR)'
+        required: false
+        default: 'N/A'
+      delivery_date:
+        description: 'Data Consegna Merce'
+        required: false
+        default: 'N/A'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install python-docx
+
+      - name: Genera Documento Word
+        run: |
+          python generate.py "${{ github.event.inputs.customer_name }}" "${{ github.event.inputs.subscription_id }}" "${{ github.event.inputs.disputed_amount }}" "${{ github.event.inputs.delivery_date }}"
+
+      - name: Carica il file nei Risultati (Artifacts)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rebuttal-${{ github.event.inputs.subscription_id }}
+          path: "*.docx"
