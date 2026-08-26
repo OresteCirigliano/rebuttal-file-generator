@@ -13,8 +13,11 @@ doc = Document(template_path)
 replacements = {
     "{CUSTOMER FULL NAME}": customer_name,
     "{SUBSCRIPTION ID}": subscription_id,
-    "{AMOUNT + CURRENCY}": disputed_amount,
-    "{DD.MM.YYYY}": delivery_date,
+    "{ORDER ID}": Shipping Order ID,
+    "SUBSCRIPTION DATE}" : subscription_creation_date,
+    "{DISPUTE AMOUNT AMOUNT + CURRENCY}": disputed_amount,
+    "{DELIVERY DATE}": delivery_date,
+    "
 }
 
 # Sostituisce i dati nei paragrafi
