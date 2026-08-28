@@ -100,8 +100,8 @@ The cardholder explicitly opted to receive a 4-month supply shipment (Shipment #
 During checkout, the customer formally accepted the Terms & Conditions (mandatory to proceed with the payment) and authenticated the initial charge via 3D-Secure (3DS). 
 The full product supply was successfully delivered on {delivery_date} via DHL (Tracking ID: {tracking_id}). 
 
-The customer is currently disputing instalment {disputed_instalment} charged on {disputed_charge_date} for reason '{chargeback_reason}'. 
-This charge is fully legitimate and contractually due, as it covers inventory already delivered and retained by the customer.
+The customer is currently disputing instalment {disputed_instalment} for reason '{chargeback_reason}'. 
+This charge is fully legitimate and contractually due, as it partially covers inventory delivered on {delivery_date} and retained by the customer.
 """
 
 print("\n" + context_text)
