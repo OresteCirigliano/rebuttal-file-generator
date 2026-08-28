@@ -28,7 +28,7 @@ with st.form("rebuttal_form"):
         consecutive_shipment_number = st.text_input("Consecutive Shipment Number", value="1")
         disputed_charge_date = st.text_input("Disputed Charge Date (DD.MM.YYYY)", value="26.07.2026")
         disputed_instalment = st.text_input("Disputed Instalment (#X of 4)", value="2")
-        chargeback_reason = st.selectbox("Chargeback Reason", ["Unauthorised / Fraudulent", "Goods Not Received", "Subscription Cancelled", "Other"])
+        chargeback_reason = st.selectbox("Chargeback Reason", ["Unauthorised / Fraudulent", "Goods Not Received", "Subscription Cancelled", "Product unacceptable", "Credit not processed", "Other"])
 
     submitted = st.form_submit_button("🚀 Genera Rebuttal Package")
 
