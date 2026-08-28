@@ -112,6 +112,22 @@ This charge is fully legitimate and contractually due, as it partially covers in
     with zipfile.ZipFile(zip_io, 'w') as zf:
         zf.writestr(f"Rebuttal_{subscription_id}.docx", docx_io.getvalue())
         zf.writestr(f"Context_{subscription_id}.txt", context_text)
+        screenshots = [
+            "Screenshot_T&C_5_ES.jpg",
+            "Screenshot_T&C_5_UK.jpg",
+            "Screenshot_T&C_8_ES.jpg",
+            "Screenshot_T&C_8_UK.jpg",
+            "Screenshot_checkout ESjpg.jpg",
+            "Screenshot_checkout UK.jpg"
+        ]
+        
+        # Ciclo per allegare ogni screenshot se presente nella cartella
+        for img in screenshots:
+            try:
+                with open(img, "rb") as f:
+                    zf.writestr(img, f.read())
+            except FileNotFoundError:
+                st.warning(f"⚠️ Immagine non trovata nel repository: {img}")
     zip_io.seek(0)
 
     st.success("✅ Documentazione generata con successo!")
