@@ -26,7 +26,7 @@ with st.form("rebuttal_form"):
         disputed_amount = st.text_input("Disputed Amount + Currency", value="£30.00 EUR")
         delivery_date = st.text_input("Delivery Date (DD.MM.YYYY)", value="28.06.2026")
         consecutive_shipment_number = st.text_input("Consecutive Shipment Number", value="1")
-        disputed_charge_date = st.text_input("Disputed Charge Date (DD.MM.YYYY)", value="26.07.2026")
+        disputed_order_id = st.text_input("Disputed Order ID", value="JP-XXXX")
         disputed_instalment = st.text_input("Disputed Instalment (#X of 4)", value="2")
         chargeback_reason = st.selectbox("Chargeback Reason", ["Unauthorised / Fraudulent", "Goods Not Received", "Subscription Cancelled", "Product unacceptable", "Credit not processed", "Other"])
 
@@ -67,7 +67,7 @@ if submitted:
         "{AMOUNT + CURRENCY}": disputed_amount,
         "{DELIVERY DATE}": delivery_date,
         "{shipping number}": consecutive_shipment_number,
-        "{Disputed Charge Date}": disputed_charge_date,
+        "{Disputed Order ID}": disputed_order_id,
         "{#X of 4}": disputed_instalment,
         "{e.g. Fraudulent / Not Received / Unauthorised}": chargeback_reason,
         "{INSTALMENT_1_DATE}": instalment_1_date,
