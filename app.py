@@ -118,7 +118,10 @@ This charge is fully legitimate and contractually due, as it partially covers in
             "Screenshot_T&C_8_ES.jpg",
             "Screenshot_T&C_8_UK.jpg",
             "Screenshot_checkout ESjpg.jpg",
-            "Screenshot_checkout UK.jpg"
+            "Screenshot_checkout UK.jpg",
+            "checkout_UK2.jpg",
+            "Terms_and_policies_Cancellations_1.jpg",
+            "Terms_and_policies_Cancellations_2.jpg"
         ]
         
         # Ciclo per allegare ogni screenshot se presente nella cartella
